@@ -1,7 +1,7 @@
 <template>
-<div> Labels.vue
-  <Nav></Nav><!--  Nav是3个标签组成的组件-->
-</div>
+<layout> Labels.vue</layout>
+
+
 </template>
 
 <script lang="ts">
