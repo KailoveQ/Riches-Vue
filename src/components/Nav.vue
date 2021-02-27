@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="nav">
   <router-link to="/money">明细</router-link>
   |
   <router-link to="/labels">记账</router-link>
@@ -19,5 +19,7 @@ export default class Nav extends Vue {
 </script>
 
 <style lang="scss" scoped>
-
+.nav{
+  border: 2px solid palegreen;
+}
 </style>
