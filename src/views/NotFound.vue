@@ -2,7 +2,7 @@
 <div>
   <p>404老铁！啥也没有，检查路径对不对</p>
   <div>
-    <router-link to="/money">返回首页</router-link>
+    <router-link to="/labels">返回首页</router-link>
   </div>
 </div>
 </template>
