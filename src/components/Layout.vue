@@ -25,7 +25,6 @@ export default class Layout extends Vue {
   min-height: 100vh;
 }
 .content{
-  border: 1px solid blue;
   overflow: auto;
   flex-grow: 1;
 }
