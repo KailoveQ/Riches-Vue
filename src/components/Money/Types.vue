@@ -1,9 +1,8 @@
 <template>
   <div>
     <ul class="types">
-      <li class="selected z" >支出</li>
-      <li class="z">收入</li>
-      <li><router-link to="/labels" class="close">取消</router-link></li>
+      <li class="selected" >支出</li>
+      <li >收入</li>
     </ul>
 
   </div>
@@ -18,7 +17,7 @@
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
   .types {
-    background: $yellow;
+    background: $color-background;
     display: flex;
     text-align: center;
     font-size: 20px;

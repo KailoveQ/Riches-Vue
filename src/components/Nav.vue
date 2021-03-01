@@ -50,7 +50,7 @@ nav {
     }
   }
   > .item.selected{
-    color: $yellow;
+    color: $color-highlight;
   }
 }
 
