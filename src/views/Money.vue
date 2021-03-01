@@ -1,14 +1,12 @@
 <template>
   <div class="money">
     <div class="types">
-         <Types></Types>
+         <Types class-prefix="types" ></Types>
          <button class="cancel" @click="cancle">取消</button>
     </div>
-    <TypeList></TypeList>
-    <div>
-      <NumberPad></NumberPad>
-
-    </div>
+    <TypeList  class-prefix="money" class="tag-list"></TypeList>
+    <Notes class-prefix="money"></Notes>
+    <NumberPad ></NumberPad>
   </div>
 </template>
 
@@ -19,9 +17,10 @@ import {Component} from 'vue-property-decorator';
 import Types from '@/components/Money/Types.vue';
 import TypeList from '@/components/Money/TypeList.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
+import Notes from '@/components/Money/Notes.vue';
 
 @Component({
-  components: {NumberPad, TypeList, Types}
+  components: {Notes, NumberPad, TypeList, Types}
 })
 export default class Money extends Vue {
   cancle(){
@@ -50,6 +49,26 @@ export default class Money extends Vue {
     font-size: 16px;
     padding: 24px 14px 8px 16px;
     color:white;
+  }
+}
+.money{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .tag-list{
+    padding-bottom: 12px;
+    flex-grow: 1;
+    overflow: auto;
+  }
+}
+
+::v-deep {
+  .money-nodes {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vh;
+    border: 1px solid red;
   }
 }
 </style>

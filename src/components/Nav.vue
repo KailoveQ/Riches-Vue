@@ -1,17 +1,16 @@
 <template>
 <nav>
-
-
-  <router-link to="/labels" class="item" active-class="selected">
-    <icon name="labels"/>标签
+  <router-link to="/labels" class="nav-item" active-class="selected">
+    <Icon name="labels" class="icon"/>
+    <span>明细</span>
   </router-link>
-
-  <router-link to="/money" class="item" active-class="selected">
-    <icon name="money"/>记账
+  <router-link to="/money" class="nav-item" active-class="selected">
+    <Icon name="money" class="icon"/>
+    <span>记账</span>
   </router-link>
-
-  <router-link to="/statistics" class="item" active-class="selected">
-    <icon name="statistics"/>统计
+  <router-link to="/statistics" class="nav-item" active-class="selected">
+    <Icon name="statistics" class="icon"/>
+    <span>图表</span>
   </router-link>
 
 
@@ -32,27 +31,29 @@ export default class Nav extends Vue {
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 nav {
+  font-size: 14px;
   display: flex;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
-  flex-direction: row;
-  font-size: 12px;
-  padding: 4px 24px;
   justify-content: space-between;
-  > .item {
-    //width: 33.33333%;
+  align-items: center;
+  padding: 4px 24px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  .nav-item {
     display: flex;
-    align-items: center;
     flex-direction: column;
-
+    align-items: center;
     .icon {
       width: 24px;
       height: 24px;
     }
-  }
-  > .item.selected{
-    color: $color-highlight;
+    &.selected {
+      color: #7C48DB;
+    }
   }
 }
-
 
 </style>

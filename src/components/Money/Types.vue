@@ -1,11 +1,8 @@
 <template>
-  <div>
     <ul class="types">
       <li class="selected" >支出</li>
       <li >收入</li>
     </ul>
-
-  </div>
 </template>
 
 <script lang="ts">
@@ -32,11 +29,11 @@
       &.selected::after {
         content: '';
         position: absolute;
-        bottom: 0;
+        bottom: -1px;
         left: 0;
         width: 100%;
-        height: 3px;
-        background: #333;
+        height: 4px;
+        background: #f5f5f5;
       }
     }
   }

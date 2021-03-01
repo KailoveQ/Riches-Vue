@@ -1,40 +1,82 @@
 <template>
-  <div class="typeList">
-    <div class="current">
-      <ul>
-        <li><icon name="餐饮"/>餐饮</li>
-        <li><icon name="购物"/>购物</li>
-        <li><icon name="居住"/>居住</li>
-        <li><icon name="交通"/>交通</li>
-        <li><icon name="娱乐"/>娱乐</li>
-        <li><icon name="医疗"/>医疗</li>
-        <li><icon name="游戏"/>游戏</li>
-        <li><icon name="添加"/>添加</li>
+
+      <ul class="tags" :class="{[classPrefix+'-tags']:classPrefix}" >
+        <li v-for="tags in initTags" :key="tags.name"   class="tags-item" :class="{[classPrefix+'-tags-item']: classPrefix}">
+          <div class="tags-item-icon"  :class="{[classPrefix+'-tags-item-icon']: classPrefix}">
+            <Icon :name="tags.name"/>
+          </div>
+          <span>{{tags.name}}</span>
+        </li>
       </ul>
-    </div>
-  </div>
+
 </template>
 
 <script lang="ts">
 
-import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
 
-@Component
-export default class TypeList extends Vue {
+export default {
+  name: 'Types',
+  props:['classPrefix'],
+  data(){
+    return{
+      initTags :[
+        { name: '餐饮'},
+        { name: '购物'},
+        { name: '居住'},
+        { name: '交通'},
+        { name: '娱乐'},
+        { name: '医疗'},
+        { name: '游戏'},
+        { name: '添加'}
+      ]
+    }
+  }
 
-}
+};
+
 </script>
 
 <style lang="scss" scoped>
-.current {
+.tags {
+  padding: 16px;
   display: flex;
-  
-  padding: 6px 12px;
-  box-shadow: inset 0 -1px 1px -1px rgba(0, 0, 0, 0.3);
-  border: 1px solid red;
-  > ul{
-    border: 1px solid red;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow: auto;
+  &-item {
+    width: 25%;
+    padding: 12px 0;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-icon {
+      width: 48px;
+      height: 48px;
+      padding: 4px;
+      border-radius: 50%;
+      background: #f5f5f5;
+      margin-bottom: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      &.selected {
+        background: #b08fee;
+
+        svg {
+          width: 30px;
+          height: 30px;
+          color:white
+        }
+      }
+      svg {
+        width: 30px;
+        height: 30px;
+        color:rgb(128, 130, 131)
+      }
+    }
   }
 }
 
