@@ -9,7 +9,7 @@
 @import "~@/assets/style/reset.scss";
 
 #app {
-  font-family: $font-kai;
+  font-family: $font-hei;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

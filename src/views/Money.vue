@@ -4,6 +4,11 @@
          <Types></Types>
          <button class="cancel" @click="cancle">取消</button>
     </div>
+    <TypeList></TypeList>
+    <div>
+      <NumberPad></NumberPad>
+
+    </div>
   </div>
 </template>
 
@@ -12,8 +17,11 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Types from '@/components/Money/Types.vue';
+import TypeList from '@/components/Money/TypeList.vue';
+import NumberPad from '@/components/Money/NumberPad.vue';
+
 @Component({
-  components: {Types}
+  components: {NumberPad, TypeList, Types}
 })
 export default class Money extends Vue {
   cancle(){
@@ -23,11 +31,17 @@ export default class Money extends Vue {
 </script>
 
 <style lang="scss" scoped>
-types{
-  background:#9563f1;
+@import "~@/assets/style/helper.scss";
+.types{
+  background:$color-background;
   display:flex;
   justify-content: center;
   position: relative;
+
+  ::v-deep .types-tab-bar-item {
+    padding: 24px 16px 8px 16px;
+  }
+
   .cancel{
     position: absolute;
     top:40%;
