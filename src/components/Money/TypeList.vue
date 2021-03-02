@@ -1,11 +1,13 @@
 <template>
   <ul class="tags" :class="{[classPrefix+'-tags']:classPrefix}">
+
       <li v-for="(tag,index) in tagList" :key="index" @click="select(tag)" class="tags-item" :class="{[classPrefix+'-tags-item']: classPrefix}">
         <div class="tags-item-icon" :class="{'selected': tag.name === selectedTag.name, [classPrefix+'-tags-item-icon']: classPrefix}">
           <Icon :name='tag.name' />
         </div>
         <span>{{tag.value}}</span>
       </li>
+
       <li v-if="dynamic" class="tags-item">
         <div class="tags-item-icon" @click="add">
           <Icon name="add" />

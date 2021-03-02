@@ -4,11 +4,10 @@
          <Types class-prefix="types"  :bars="barsValue" :c-bar.sync="record.type"></Types>
          <button class="cancel" @click="cancle">取消</button>
     </div>
-    <TypeList v-if="record.type==='-'" class-prefix="money" :dynamic="true" :selected-tag.sync="record.tag" :tag-list="tagList" class="tag-list"/>
+    <TypeList v-if="record.type==='-'" class-prefix="money" :dynamic="false" :selected-tag.sync="record.tag" :tag-list=" ingoTags" class="tag-list"/>
     <TypeList v-else-if="record.type === '+'" class-prefix="money" :dynamic="true" :selected-tag.sync="record.tag" :tag-list="incomeTags" class="tag-list"/>
 
-
-    <NumberPad class-prefix='money' :note.sync='record.note' :amount.sync='record.amount' @complete="complete"/>
+    <NumberPad class-prefix='money' :note.sync='record.note' :amount.sync='record.amount' />
   </div>
 </template>
 
@@ -17,10 +16,9 @@
 import Vue from 'vue';
 import {Component,Watch} from 'vue-property-decorator';
 import Types from '@/components/Money/Types.vue';
-import clone from '@/lib/clone';
 import TypeList from '@/components/Money/TypeList.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
-import {defaultIncomeTags} from '@/contants/defaultTags'
+import {defaultIncomeTags,defaultExpenseTags} from '@/contants/defaultTags'
 
 @Component({
   components: { NumberPad, TypeList, Types}
@@ -29,10 +27,11 @@ export default class Money extends Vue {
   barsValue=[{name: '支出', value: '-'}, {name: '收入', value: '+'}];
   record: RecordItem =this.initRecord();
   incomeTags=defaultIncomeTags;
+  ingoTags=defaultExpenseTags;
 
-  get tagList(): TagItem[]{
-    return this.$store.state.tagList;
-  }
+  // get tagList(): TagItem[]{
+  //   return this.$store.state.tagList;
+  // }
   initRecord(){
     return {tag: {name: 'food', value: '餐饮'},
       type: '-',
@@ -43,13 +42,9 @@ export default class Money extends Vue {
     this.$router.replace('/labels')
   }
 
-  complete(){
-    this.$store.commit('insertRecord',clone<RecordItem>(this.record));
-    this.record=this.initRecord();
-    this.$router.replace('/bill')
-  }
+
   @Watch('record.type')
-  onTypeChange(type: string){
+    onTypeChange(type: string){
     if(type==='+'){
       this.record.tag={name:'salary',value:'工资'};
     }else if(type==='-'){
