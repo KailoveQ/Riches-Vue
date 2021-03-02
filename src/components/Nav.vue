@@ -1,35 +1,30 @@
 <template>
-<nav>
-  <router-link to="/labels" class="nav-item" active-class="selected">
-    <Icon name="labels" class="icon"/>
-    <span>明细</span>
-  </router-link>
-  <router-link to="/money" class="nav-item" active-class="selected">
-    <Icon name="money" class="icon"/>
-    <span>记账</span>
-  </router-link>
-  <router-link to="/statistics" class="nav-item" active-class="selected">
-    <Icon name="statistics" class="icon"/>
-    <span>图表</span>
-  </router-link>
-
-
-
-</nav>
+  <nav>
+    <router-link to="/labels" class="nav-item" active-class="selected">
+      <Icon name="labels" class="icon"/>
+      <span>明细</span>
+    </router-link>
+    <router-link to="/money" class="nav-item" active-class="selected">
+      <Icon name="money" class="icon"/>
+      <span>记账</span>
+    </router-link>
+    <router-link to="/statistics" class="nav-item" active-class="selected">
+      <Icon name="statistics" class="icon"/>
+      <span>图表</span>
+    </router-link>
+  </nav>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-@Component
+import Icon from '@/components/Icon.vue';
+@Component({components: {Icon}})
 export default class Nav extends Vue {
-
 }
-
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
 nav {
   font-size: 14px;
   display: flex;
@@ -55,5 +50,4 @@ nav {
     }
   }
 }
-
 </style>

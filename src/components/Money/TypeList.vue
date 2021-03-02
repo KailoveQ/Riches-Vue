@@ -1,39 +1,42 @@
 <template>
-
-      <ul class="tags" :class="{[classPrefix+'-tags']:classPrefix}" >
-        <li v-for="tags in initTags" :key="tags.name"   class="tags-item" :class="{[classPrefix+'-tags-item']: classPrefix}">
-          <div class="tags-item-icon"  :class="{[classPrefix+'-tags-item-icon']: classPrefix}">
-            <Icon :name="tags.name"/>
-          </div>
-          <span>{{tags.name}}</span>
-        </li>
-      </ul>
+  <ul class="tags" :class="{[classPrefix+'-tags']:classPrefix}">
+      <li v-for="(tag,index) in tagList" :key="index" @click="select(tag)" class="tags-item" :class="{[classPrefix+'-tags-item']: classPrefix}">
+        <div class="tags-item-icon" :class="{'selected': tag.name === selectedTag.name, [classPrefix+'-tags-item-icon']: classPrefix}">
+          <Icon :name='tag.name' />
+        </div>
+        <span>{{tag.value}}</span>
+      </li>
+      <li v-if="dynamic" class="tags-item">
+        <div class="tags-item-icon" @click="add">
+          <Icon name="add" />
+        </div>
+        <span>添加</span>
+      </li>
+  </ul>
 
 </template>
-
 <script lang="ts">
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+import Icon from '@/components/Icon.vue';
 
+@Component({
+components:{Icon}
+})
+    export default class TagList extends Vue {
+      @Prop(String) classPrefix?: string;
+      @Prop({required: true,type: Object}) selectedTag!: TagItem;
+      @Prop({required: true,default: false}) dynamic!: boolean;
+      @Prop({required: true,type: Array}) tagList!: TagItem[];
 
-export default {
-  name: 'Types',
-  props:['classPrefix'],
-  data(){
-    return{
-      initTags :[
-        { name: '餐饮'},
-        { name: '购物'},
-        { name: '居住'},
-        { name: '交通'},
-        { name: '娱乐'},
-        { name: '医疗'},
-        { name: '游戏'},
-        { name: '添加'}
-      ]
+      select(tag: TagItem){
+          this.$emit('update:selectedTag',tag);
+      }
+
+      add(){
+          this.$router.replace('/tags');  //TODO
+      }
     }
-  }
-
-};
-
 </script>
 
 <style lang="scss" scoped>

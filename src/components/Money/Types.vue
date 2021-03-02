@@ -1,49 +1,27 @@
 <template>
-  <ul class="types">
-    <li :class=" type ==='-' && 'selected' " @click="selectType('-')">支出</li>
-    <li :class=" type ==='+' && 'selected' " @click="selectType('+')">收入</li>
+  <ul class="types" :class="{[classPrefix+'-tab-bar']:classPrefix}" >
+    <li class="types-item" :class="{[classPrefix+'-tab-bar-item']:classPrefix,'selected':cBar===bar.value}"
+        v-for="(bar,index) in bars" :key="index" @click="toggle(bar.value)"
+    >
+      {{bar.name}}
+    </li>
   </ul>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component,Prop} from 'vue-property-decorator';
 
-@Component({
-  props:{
-    msg:String
-  }
-})
+@Component
 export default class Types extends Vue {
-  type = '-'; //-表示支出，'加表示收入'
-  helloMsg= 'hello'+this.msg;
-  selectType(type: string) {
-    if (type !== '-' && type !== '+') {
-      throw new Error('type is unknown');
-    }
-    this.type = type;
+  @Prop(String) classPrefix?: string;
+  @Prop({required: true,type: Array}) bars!: TabBarItem[];
+  @Prop({required: true,type: String}) cBar!: string;
+  toggle(barValue: string){
+    this.$emit('update:cBar',barValue)
   }
 }
 </script>
-
-<!--<script lang="js">-->
-<!--  export default {-->
-<!--    name: 'Types',-->
-<!--    data(){-->
-<!--      return{-->
-<!--        type:'-'//-表示支出，'加表示收入'-->
-<!--      }-->
-<!--    },-->
-<!--    methods:{-->
-<!--      selectType(type){-->
-<!--        if (type !== '-' &&type !=='+'){-->
-<!--          throw new Error('type is unknown')-->
-<!--        }-->
-<!--        this.type= type-->
-<!--      }-->
-<!--    }-->
-<!--  };-->
-<!--</script>-->
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
