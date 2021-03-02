@@ -6,7 +6,7 @@
     </div>
     <TypeList  class-prefix="money" class="tag-list"></TypeList>
     <Notes class-prefix="money"></Notes>
-    <NumberPad ></NumberPad>
+    <NumberPad/>
   </div>
 </template>
 
