@@ -23,6 +23,8 @@ import Notes from '@/components/Money/Notes.vue';
   components: {Notes, NumberPad, TypeList, Types}
 })
 export default class Money extends Vue {
+
+
   cancle(){
     this.$router.replace('/labels')
   }
