@@ -25,6 +25,7 @@ export default class Nav extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 nav {
   font-size: 14px;
   display: flex;
@@ -36,7 +37,8 @@ nav {
   left: 0;
   bottom: 0;
   width: 100%;
-  background: white;
+  background: $color-background;
+  color: #b0adad;
   .nav-item {
     display: flex;
     flex-direction: column;
@@ -46,7 +48,7 @@ nav {
       height: 24px;
     }
     &.selected {
-      color: #7C48DB;
+      color: #fff;
     }
   }
 }

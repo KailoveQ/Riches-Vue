@@ -10,10 +10,10 @@
 
     <div class="panel">{{output}}</div>
     <div class="number-pad">
-      <button v-for="(name,index) in buttonList" :key="index" :class="name==='ok' && 'ok'" >{{name}}</button>
+      <button v-for="(name,index) in buttonList" :key="index" :class="name==='ok' && 'ok'" @click="inputConent">{{name}}</button>
 
-      <button >
-        <Icon name='delete' />
+      <button  @click="clear">
+        <Icon name='delete'/>
       </button>
     </div>
 
@@ -37,8 +37,30 @@ import Icon from '@/components/Icon.vue';
     buttonList: string[] = ['1', '2', '3', '+', '4', '5', '6', '-',
       '7', '8', '9', 'ok', '.', '0'];
 
-    output = '0';
+    output  = '0';
+    inputConent(event: MouseEvent){
+      const button =(event.target as HTMLButtonElement);
+      const input =button.textContent as string; //相当于是 as String 强制指定类型，肯定不是空
+      if(this.output.length === 20){return;}
+      if(this.output==='0'){
+        if('0123456789'.indexOf(input)>=0){
+          this.output =input;
+        }else{
+          this.output+=input;
+        }
+        return
+      }
+      if (this.output.indexOf('.') >= 0 && input === '.') {return;}
+      this.output+=input;
+    }
+
+    clear(){
+      if(this.output.length>=3){
+        this.output= this.output.slice(0,-1)
+      }
+    }
 }
+
 
 
 </script>
@@ -91,13 +113,14 @@ import Icon from '@/components/Icon.vue';
       height:$h;
       font-size: 16px;
       border:none;
+      color: darken($color-background, 22%);
 
       &.ok{
         float: right;
         height: $h*2;
       }
 
-      $bg:#b3bcf0;
+      $bg:$color-font;
 
       &:nth-child(1) {
         background: $bg;

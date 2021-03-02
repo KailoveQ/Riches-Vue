@@ -4,7 +4,7 @@
          <Types class-prefix="types"  :bars="barsValue" :c-bar.sync="record.type"></Types>
          <button class="cancel" @click="cancle">取消</button>
     </div>
-    <TypeList v-if="record.type==='-'" class-prefix="money" :dynamic="false" :selected-tag.sync="record.tag" :tag-list=" ingoTags" class="tag-list"/>
+    <TypeList v-if="record.type==='-'" class-prefix="money" :dynamic="true" :selected-tag.sync="record.tag" :tag-list=" ingoTags" class="tag-list"/>
     <TypeList v-else-if="record.type === '+'" class-prefix="money" :dynamic="true" :selected-tag.sync="record.tag" :tag-list="incomeTags" class="tag-list"/>
 
     <NumberPad class-prefix='money' :note.sync='record.note' :amount.sync='record.amount' />
@@ -58,7 +58,7 @@ export default class Money extends Vue {
 @import "~@/assets/style/helper.scss";
 
 .types{
-  background:#9563f1;
+  background: $color-background;
   display:flex;
   justify-content: center;
   position: relative;
@@ -74,7 +74,7 @@ export default class Money extends Vue {
     transform: translateY(-50%);
     font-size: 16px;
     padding: 24px 14px 8px 16px;
-    color:white;
+    color:$color-font;
   }
 }
 

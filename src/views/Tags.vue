@@ -1,6 +1,7 @@
 <template>
-  <div>我是tags,vue
-    <router-link to="/labels">返回首页</router-link>
+  <div>
+    <h2>我是tags,vue</h2>
+    <router-link to="/money"><h3>取消</h3></router-link>
   </div>
 </template>
 

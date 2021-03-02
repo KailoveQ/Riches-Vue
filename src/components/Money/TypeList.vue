@@ -68,7 +68,7 @@ components:{Icon}
       justify-content: center;
       align-items: center;
       &.selected {
-        background: #b08fee;
+        background: #5a4e62;
 
         svg {
           width: 30px;

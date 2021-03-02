@@ -27,11 +27,11 @@ export default class Types extends Vue {
 @import "~@/assets/style/helper.scss";
 
 .types {
-  background: $color-background;
   display: flex;
   text-align: center;
   font-size: 20px;
   justify-content: center;
+  color: $color-font;
 
   > li {
     padding: 24px 16px 8px 16px;
