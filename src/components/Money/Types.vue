@@ -26,12 +26,18 @@ export default class Types extends Vue {
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 
+.selected{
+  font-weight: bold;
+}
+
 .types {
   display: flex;
   text-align: center;
-  font-size: 20px;
   justify-content: center;
   color: $color-font;
+  > .types-item{
+    color: white;
+  }
 
   > li {
     padding: 24px 16px 8px 16px;
@@ -40,6 +46,7 @@ export default class Types extends Vue {
     justify-content: center;
     align-items: center;
     position: relative;
+    font-size: 20px;
 
     &.selected::after {
       content: '';
