@@ -93,7 +93,7 @@ export default class Money extends Vue {
 
 
 ::v-deep {
-  .money-calculator {
+  .money-numberPad {
     position: fixed;
     bottom: 0;
     left: 0;

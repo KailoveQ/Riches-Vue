@@ -42,6 +42,7 @@ components:{Icon}
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 .tags {
   padding: 16px;
   display: flex;
@@ -61,14 +62,14 @@ components:{Icon}
       height: 48px;
       padding: 4px;
       border-radius: 50%;
-      background: #f5f5f5;
+      background: #e9f3ee;
       margin-bottom: 4px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       &.selected {
-        background: #5a4e62;
+        background: $color-background;
 
         svg {
           width: 30px;

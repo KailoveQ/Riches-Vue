@@ -1,7 +1,6 @@
 <template>
-  <div class="numberPad" :class="classPrefix && `${classPrefix}-calculator`">
+  <div class="numberPad" :class="classPrefix && `${classPrefix}-numberPad`">
     <label class="note">
-      {{value}}
       <div class="icon">
         <Icon name='note' />
       </div>
@@ -29,7 +28,7 @@ import Icon from '@/components/Icon.vue';
 @Component({
   components:{Icon}
 })
-  export default class Calculator extends Vue {
+  export default class NumberPad extends Vue {
   @Prop(String) classPrefix?: string;
   @Prop({required:true,type: String}) note!: string;
   @Prop({required:true,type: Number}) amount!: string;
