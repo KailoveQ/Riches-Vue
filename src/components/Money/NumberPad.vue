@@ -5,14 +5,14 @@
         <Icon name='note' />
       </div>
       <span>备注:</span>
-      <input type="text" placeholder="写一点备注呀~" >
+      <input type="text" placeholder="写一点备注呀~" :value="node" @input="writeNote($event.target.value)">
     </label>
 
     <div class="panel">{{output}}</div>
     <div class="number-pad">
       <button v-for="(name,index) in buttonList" :key="index" :class="name==='ok' && 'ok'" @click="inputConent">{{name}}</button>
 
-      <button  @click="clear">
+      <button  @click="remove">
         <Icon name='delete'/>
       </button>
     </div>
@@ -36,8 +36,14 @@ import Icon from '@/components/Icon.vue';
 
     buttonList: string[] = ['1', '2', '3', '+', '4', '5', '6', '-',
       '7', '8', '9', 'ok', '.', '0'];
-
+    value = '';
     output  = '0';
+    dot = true;
+    // 有效数字最多为.前6位.后2位
+    validNumberBeforeDot = 6;
+    validNumberAfterDot = 2;
+    // 记录运算
+    operator = '';
     inputConent(event: MouseEvent){
       const button =(event.target as HTMLButtonElement);
       const input =button.textContent as string; //相当于是 as String 强制指定类型，肯定不是空
@@ -54,11 +60,32 @@ import Icon from '@/components/Icon.vue';
       this.output+=input;
     }
 
-    clear(){
-      if(this.output.length>=3){
-        this.output= this.output.slice(0,-1)
+  remove() {
+    if (this.output.length > 1) {
+      const last = this.output.slice(-1);
+      if (last === '.') {
+        this.dot = true;
+      } else if ('+-'.indexOf(last) >= 0) {
+        this.operator = '';
+      } else if ('0123456789'.indexOf(last) >= 0) {
+        if (this.dot) {
+          this.validNumberBeforeDot += 1;
+        } else {
+          this.validNumberAfterDot += 1;
+        }
       }
+      this.output = this.output.slice(0, -1);
+    } else {
+      this.output = '0';
+      this.reset();
     }
+  }
+
+  reset() {
+    this.dot = true;
+    this.validNumberBeforeDot = 6;
+    this.validNumberAfterDot = 2;
+  }
 }
 
 
