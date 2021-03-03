@@ -6,7 +6,7 @@
         <Icon name='note' />
       </div>
       <span>备注:</span>
-      <input type="text" placeholder="写一点备注呀~" :value="value"  @input="onInput">
+      <input type="text" placeholder="写一点备注呀~"  v-model="value">
     </label>
 
     <div class="panel">{{output}}</div>
@@ -38,10 +38,10 @@ import Icon from '@/components/Icon.vue';
       '7', '8', '9', 'ok', '.', '0'];
     value = '';
 
-    onInput(event: KeyboardEvent){
-      const input =event.target as HTMLButtonElement;
-      this.value= input.value;
-    }
+    // onInput(event: KeyboardEvent){
+    //   const input =event.target as HTMLButtonElement;
+    //   this.value= input.value;
+    // }
 
     output  = '0';
     dot = true;
