@@ -5,6 +5,7 @@ import Statistics from '@/views/Statistics.vue';
 import NotFound from '@/views/NotFound.vue';
 import Money from '@/views/Money.vue';
 import Tags from '@/views/Tags.vue';
+import LabelList from '@/views/LabelsList.vue';
 
 
 Vue.use(VueRouter)
@@ -22,6 +23,10 @@ const routes: Array<RouteConfig> = [
   {
     path:'/money',
     component:Money
+  },
+  {
+    path:'/labellist',
+    component:LabelList
   },
   {
     path:'/tags',
