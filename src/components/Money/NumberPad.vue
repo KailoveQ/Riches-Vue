@@ -1,11 +1,12 @@
 <template>
   <div class="numberPad" :class="classPrefix && `${classPrefix}-calculator`">
     <label class="note">
+      {{value}}
       <div class="icon">
         <Icon name='note' />
       </div>
       <span>备注:</span>
-      <input type="text" placeholder="写一点备注呀~" :value="node" @input="writeNote($event.target.value)">
+      <input type="text" placeholder="写一点备注呀~" :value="value"  @input="onInput">
     </label>
 
     <div class="panel">{{output}}</div>
@@ -16,7 +17,6 @@
         <Icon name='delete'/>
       </button>
     </div>
-
   </div>
 
 </template>
@@ -37,6 +37,12 @@ import Icon from '@/components/Icon.vue';
     buttonList: string[] = ['1', '2', '3', '+', '4', '5', '6', '-',
       '7', '8', '9', 'ok', '.', '0'];
     value = '';
+
+    onInput(event: KeyboardEvent){
+      const input =event.target as HTMLButtonElement;
+      this.value= input.value;
+    }
+
     output  = '0';
     dot = true;
     // 有效数字最多为.前6位.后2位
