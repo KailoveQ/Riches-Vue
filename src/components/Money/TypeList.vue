@@ -28,7 +28,7 @@ components:{Icon}
     export default class TagList extends Vue {
       @Prop(String) classPrefix?: string;
       @Prop({required: true,type: Object}) selectedTag!: TagItem;
-      @Prop({required: true,default: false}) dynamic!: boolean;
+      @Prop({required: true,default:false}) dynamic!: boolean;
       @Prop({required: true,type: Array}) tagList!: TagItem[];
 
       select(tag: TagItem){

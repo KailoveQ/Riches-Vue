@@ -12,6 +12,11 @@
 import Vue from 'vue';
 import {Component,Prop} from 'vue-property-decorator';
 
+type TabBarItem = {
+  name: string;
+  value: string;
+}
+
 @Component
 export default class Types extends Vue {
   @Prop(String) classPrefix?: string;
@@ -36,7 +41,7 @@ export default class Types extends Vue {
   justify-content: center;
   color: $color-font;
   > .types-item{
-    color: white;
+    color: $color-font;
   }
 
   > li {
@@ -55,7 +60,7 @@ export default class Types extends Vue {
       left: 0;
       width: 100%;
       height: 4px;
-      background: #f5f5f5;
+      background: $color-font;
     }
   }
 }
