@@ -145,8 +145,6 @@ export default class Labels extends Vue {
       for(record of group.items){
         if(record.type==='+'){
           total+=record.amount;
-        }else{
-          continue;
         }
       }
     }
@@ -203,16 +201,23 @@ export default class Labels extends Vue {
     }
   }
 
+
   getTotal(group: Group) {
     let total = 0;
+    let foo: string
+    foo = '123';
     let item: RecordItem;
     for (item of group.items) {
       if (item.type === '-') {
-        total -= item.amount;
-        total=total.toFixed(2)
+        total -= (item.amount);
+        foo=total.toFixed(2);
+        total=Number(foo)
+
+
       } else if (item.type === '+') {
-        total += item.amount;
-        total=total.toFixed(2)
+        total += (item.amount) ;
+        foo=total.toFixed(2);
+        total=Number(foo)
       }
     }
     if (total <= 0) {
@@ -252,7 +257,7 @@ export default class Labels extends Vue {
     img {
       position:relative;
       top:12px;
-      height: 30px;
+      height: 36px;
       margin-bottom:6px;
     }
   }
@@ -294,6 +299,7 @@ export default class Labels extends Vue {
         align-items: center;
         select {
           font-size: 16px;
+          color: $color-font;
         }
       }
       &::after {
