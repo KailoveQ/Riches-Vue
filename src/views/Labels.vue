@@ -2,10 +2,11 @@
 <layout>
       <header class="header">
         <div class="logo">
-          <img :src="logo" alt="贝迹记账" />
+          <img :src="logo" alt="Rich" />
         </div>
 
         <div class="info">
+          <div class="calendar">
           2021年3月
           </div>
 
@@ -16,30 +17,31 @@
                 <span>0</span>.00
               </div>
             </div>
+
             <div>
               <div class="label">支出</div>
               <div class="value">
                 <span>0</span>.00
               </div>
             </div>
-
           </div>
+        </div>
 
       </header>
 
       <ul  class="record">
-        <li>
+        <li >
           <div class="title">
             <span>A</span>
             <span>B</span>
           </div>
           <div class="items">
-            <router-link class="item" to="/labellist">
+            <router-link class="item" to="/labellist" >
               <div class="tag">
                 <Icon name="money" class="icon" />
                 <span>购物</span>
               </div>
-              <span>我是备注</span>
+              <span>100</span>
             </router-link>
           </div>
         </li>
@@ -55,24 +57,35 @@
 <script lang="ts">
 
 import Vue from 'vue';
+import logo from '@/assets/icons/logo2.png'
+
+
+type Group={
+  name: string;
+  items: RecordItem[];
+}
 
 import {Component} from 'vue-property-decorator';
 @Component
 export default class Labels extends Vue {
 
+  logo: string=logo;
+
+
 }
 </script>
 
 <style lang="scss" scoped>
-
+@import "~@/assets/style/helper.scss";
 .header {
-  background: #9563f1;
+  background: $color-background;
+  color: $color-font;
   .logo {
     img {
       position:relative;
-      top:10px;
+      top:12px;
       height: 30px;
-      margin-bottom:-10px;
+      margin-bottom:6px;
     }
   }
   .info {
@@ -80,9 +93,10 @@ export default class Labels extends Vue {
     align-items: center;
     padding: 4px 0;
     .label {
-      font-size: 14px;
-      color: white;
+      font-size: 10px;
+      color: #d4d2d2;
       margin-bottom: 4px;
+      padding: 1px;
     }
     .value {
       span {
@@ -99,7 +113,7 @@ export default class Labels extends Vue {
 
       .year {
         font-size: 12px;
-        color:#c7c6c3;
+        color:$color-font;
         padding: 0 3px;
         margin-bottom: 5px;
       }
@@ -119,7 +133,7 @@ export default class Labels extends Vue {
         display: block;
         width: 1px;
         height: 30px;
-        background: #333333;
+        background: $color-font;
         position: absolute;
         top: 50%;
         right: 0;
@@ -138,7 +152,7 @@ export default class Labels extends Vue {
   > li {
     .title {
       font-size: 12px;
-      color: #999999;
+      color: $color-background;
       display: flex;
       justify-content: space-between;
       padding: 4px 16px;
@@ -158,7 +172,7 @@ export default class Labels extends Vue {
           display: flex;
           align-items: center;
           .icon {
-            background: #b08fee;
+            background: $color-background;
             width: 30px;
             height: 30px;
             padding: 4px;
