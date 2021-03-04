@@ -8,8 +8,8 @@
       <Icon name="money" class="icon"/>
       <span>记账</span>
     </router-link>
-    <router-link to="/statistics" class="nav-item" active-class="selected">
-      <Icon name="statistics" class="icon"/>
+    <router-link to="/charts" class="nav-item" active-class="selected">
+      <Icon name="charts" class="icon"/>
       <span>图表</span>
     </router-link>
   </nav>

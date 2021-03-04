@@ -1,17 +1,15 @@
 <template>
-<div>
-  <slot></slot>
-</div>
+    <div>
+        404
+    </div>
 </template>
 
-<script lang="ts">
-
+<script lang='ts'>
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 @Component
-export default class LabelList extends Vue {
-
-}
+    export default class Exception extends Vue {
+    }
 </script>
 
 <style lang="scss" scoped>

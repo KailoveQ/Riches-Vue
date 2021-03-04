@@ -1,76 +1,242 @@
 <template>
-<layout>
-      <header class="header">
-        <div class="logo">
-          <img :src="logo" alt="Rich" />
-        </div>
+  <Layout>
+    <header class="header">
+      <div class="logo">
+        <img :src="logo" alt="富贵记账" />
+      </div>
 
-        <div class="info">
-          <div class="calendar">
-          2021年3月
+      <div class="info">
+        <div class="calendar">
+          <div class="slideYear">
+            <select v-model="year" class="year">
+              <option v-for="y in years" :key="y" :value="y">{{y}}年</option>
+            </select>
           </div>
-
-          <div class="total">
-            <div>
-              <div class="label">收入</div>
-              <div class="value">
-                <span>0</span>.00
-              </div>
-            </div>
-
-            <div>
-              <div class="label">支出</div>
-              <div class="value">
-                <span>0</span>.00
-              </div>
-            </div>
+          <div class="month">
+            <select v-model="month" >
+              <option v-for="m in 12" :key="m" :value="m">{{beautifyMonth(m)}}</option>
+            </select>
+            <span>月</span>
           </div>
         </div>
 
-      </header>
-
-      <ul  class="record">
-        <li >
-          <div class="title">
-            <span>A</span>
-            <span>B</span>
+        <div class="total">
+          <div>
+            <div class="label">收入</div>
+            <div class="value">
+              <span>{{this.totalIncome.toString().split('.')[0] || 0}}</span>.{{this.totalIncome.toString().split('.')[1]
+            || '00'}}
+            </div>
           </div>
-          <div class="items">
-            <router-link class="item" to="/labellist" >
-              <div class="tag">
-                <Icon name="money" class="icon" />
-                <span>购物</span>
-              </div>
-              <span>100</span>
-            </router-link>
+          <div>
+            <div class="label">支出</div>
+            <div class="value">
+              <span>{{this.totalExpense.toString().split('.')[0] || 0}}</span>.{{this.totalExpense.toString().split('.')[1]
+            || '00'}}
+            </div>
           </div>
-        </li>
 
-      </ul>
+        </div>
 
+      </div>
+    </header>
 
-</layout>
+    <ul v-if="groupList.length>0" class="record">
+      <li v-for="(group,index) in groupList" :key="index">
+        <div class="title">
+          <span>{{getTitle(group)}}</span>
+          <span>{{getTotal(group)}}</span>
+        </div>
+        <div class="items">
+          <router-link class="item" v-for="(item,index) in group.items" :key="index" :to="`/record/edit/${item.id}`">
+            <div class="tag">
+              <Icon :name="item.tag.name" class="icon" />
+              <span>{{item.tag.value}}</span>
+            </div>
+            <span>{{getAmount(item)}}</span>
+          </router-link>
+        </div>
+      </li>
 
+    </ul>
 
+    <div v-else class="reverse">
+      <Blank />
+    </div>
+
+  </Layout>
 </template>
 
-<script lang="ts">
-
+<script lang='ts'>
 import Vue from 'vue';
-import logo from '@/assets/icons/logo2.png'
-
+import {Component, Watch} from 'vue-property-decorator';
+import Layout from '@/components/Layout.vue';
+import Icon from '@/components/Icon.vue';
+import clone from '@/lib/clone';
+import dayjs from 'dayjs';
+import Blank from '@/components/Blank.vue';
+import logo from '@/assets/logo.png'
 
 type Group={
   name: string;
   items: RecordItem[];
 }
-
-import {Component} from 'vue-property-decorator';
-@Component
+@Component({
+  components:{Layout,Icon,Blank}
+})
 export default class Labels extends Vue {
 
   logo: string=logo;
+  year= window.localStorage.getItem('year') || dayjs().year().toString();
+  month=window.localStorage.getItem('month') || (dayjs().month() + 1).toString();
 
+  get years(){   //自己封装一个日期选择器；
+    const endYear=dayjs().year();
+    let y=1970;
+    const result: number[]=[];
+    while(y<=endYear){
+      result.unshift(y)
+      y++;
+    }
+    return result;
+  }
+
+  get recordList(): RecordItem[]{   //获取vuex的state必须使用计算属性，而ts中的计算属性使用get属性；
+    return this.$store.state.recordList;
+  }
+
+  get groupList(){
+    const result: Group[]=[];
+    const names: string[]=[];
+
+    //进行排序；
+    const sortedRecordList = clone<RecordItem[]>(this.recordList).filter(item => (dayjs(item.createAt).year() === parseInt(this.year)) && (dayjs(item.createAt).month() + 1 === parseInt(this.month))).sort((b, a) => {
+      return dayjs(a.createAt).valueOf() - dayjs(b.createAt).valueOf();
+    });
+
+    let record: RecordItem;
+
+    for (record of sortedRecordList) {
+      let date: string;
+      if (this.year === dayjs().year().toString()) {
+        // 今年的数据按天分组
+        date = dayjs(record.createAt).toISOString().split('T')[0];
+      } else {
+        // 以前的数据按月分组
+        date = dayjs(record.createAt).format('YYYY-MM');
+      }
+      const index = names.indexOf(date);
+      if (index < 0) {
+        names.push(date);
+        result.push({name: date, items: [record]});
+      } else {
+        result[index].items.push(record);
+      }
+    }
+
+    return result;
+  }
+
+  get totalIncome(){
+    let total =0;
+    let group: Group;
+    for(group of this.groupList){
+      let record: RecordItem;
+      for(record of group.items){
+        if(record.type==='+'){
+          total+=record.amount;
+        }else{
+          continue;
+        }
+      }
+    }
+
+    return total;
+  }
+
+  get totalExpense(){
+    let total =0;
+    let group: Group;
+    for(group of this.groupList){
+      let record: RecordItem;
+      for(record of group.items){
+        if(record.type==='-'){
+          total+=record.amount;
+        }
+      }
+    }
+
+    return total;
+  }
+
+  beautifyMonth(m: number){
+    return m<10?'0'+m.toString():m.toString();
+  }
+
+  toWeekday(value: number){
+    if(value>=0&&value<=6){
+      return[
+        '星期天',
+        '星期一',
+        '星期二',
+        '星期三',
+        '星期四',
+        '星期五',
+        '星期六'
+      ][value]
+    }
+  }
+
+  getTitle(group: Group) {
+    const day = dayjs(group.name);
+    const now = dayjs();
+    if (day.isSame(now, 'day')) {
+      return `今天 ${this.toWeekday(day.day())}`;
+    } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
+      return `昨天 ${this.toWeekday(day.day())}`;
+    } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
+      return `前天 ${this.toWeekday(day.day())}`;
+    } else if (day.isSame(now, 'year')) {
+      return `${day.format('M月D日')} ${this.toWeekday(day.day())}`;
+    } else {
+      return `${day.format('YYYY年M月')}`;
+    }
+  }
+
+  getTotal(group: Group) {
+    let total = 0;
+    let item: RecordItem;
+    for (item of group.items) {
+      if (item.type === '-') {
+        total -= item.amount;
+      } else if (item.type === '+') {
+        total += item.amount;
+      }
+    }
+    if (total <= 0) {
+      return `支出: ¥${Math.abs(total)}`;
+    } else {
+      return `收入: ¥${Math.abs(total)}`;
+    }
+  }
+
+  getAmount(record: RecordItem){
+    if(record.type==='+'){
+      return record.amount;
+    }else{
+      return -record.amount;
+    }
+  }
+
+
+  @Watch('year')
+  saveYear(year: string) {
+    window.localStorage.setItem('year', year);
+  }
+  @Watch('month')
+  saveMonth(month: string) {
+    window.localStorage.setItem('month', month);
+  }
 
 }
 </script>

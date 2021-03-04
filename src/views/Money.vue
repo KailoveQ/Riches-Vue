@@ -34,6 +34,8 @@ export default class Money extends Vue {
   get tagList(): TagItem[]{
     return this.$store.state.tagList;
   }
+
+
   initRecord(){
     return {tag: {name: 'food', value: '餐饮'},
       type: '-',
