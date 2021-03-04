@@ -328,10 +328,11 @@ export default class Charts extends Vue{
 
     .type {
       font-size: 20px;
-      padding: 2.5px 10px;
+      padding: 2px 10px;
       color: $color-font;
-    }
+      }
   }
+
 
   ::v-deep {
     .interval-tab-bar {
@@ -339,10 +340,14 @@ export default class Charts extends Vue{
       display: flex;
       justify-content: center;
       .interval-tab-bar-item {
-        font-size: 14px;
+        font-size: 20px;
         width: 33%;
         border: 1px solid $color-font;
+
         &:first-child {
+          border-radius: 4px 0 0 4px;
+        }
+        &:nth-child(2) {
           border-radius: 4px 0 0 4px;
         }
         &:last-child {

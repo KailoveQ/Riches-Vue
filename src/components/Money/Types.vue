@@ -45,8 +45,8 @@ export default class Types extends Vue {
   }
 
   > li {
-    padding: 24px 16px 8px 16px;
-    height: 59px;
+    //padding: 24px 16px 8px 16px;
+    //height: 59px;
     display: flex;
     justify-content: center;
     align-items: center;
