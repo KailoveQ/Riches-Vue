@@ -209,8 +209,10 @@ export default class Labels extends Vue {
     for (item of group.items) {
       if (item.type === '-') {
         total -= item.amount;
+        total=total.toFixed(2)
       } else if (item.type === '+') {
         total += item.amount;
+        total=total.toFixed(2)
       }
     }
     if (total <= 0) {

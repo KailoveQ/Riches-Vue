@@ -340,7 +340,8 @@ export default class Charts extends Vue{
       display: flex;
       justify-content: center;
       .interval-tab-bar-item {
-        font-size: 20px;
+        padding: 6px 0;
+        font-size: 16px;
         width: 33%;
         border: 1px solid $color-font;
 
