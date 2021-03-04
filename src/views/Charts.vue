@@ -1,7 +1,6 @@
 <template>
   <Layout>
     <header class="header">
-      <!--            <TabBar class-prefix="types" :bars="typeList" :c-bar.sync="type"/>-->
       <div class="toggle-wrapper">
         <select  v-model="type" class="type">
           <option v-for="(t, index) in typeList" :key="index" :value="t.value">{{t.name}}</option>
@@ -58,6 +57,7 @@ import clone from '@/lib/clone';
 import Blank from '@/components/Blank.vue';
 import {twoDecimalPlaces} from '@/lib/decimal';
 import Types from '@/components/Money/Types.vue';
+import TypeList from '@/components/Money/TypeList.vue';
 
 
 type Group={
@@ -67,7 +67,7 @@ type Group={
 }
 
 @Component({
-  components:{Types, Layout,Icon,Blank}
+  components:{TypeList, Types, Layout,Icon,Blank}
 })
 export default class Charts extends Vue{
   tottle=false;
@@ -319,15 +319,17 @@ export default class Charts extends Vue{
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 .header {
-  background: #9563f1;
+  background: $color-background;
   padding: 4px 0;
-  color:black;
+  color: $color-font;
   .toggle-wrapper{
 
     .type {
       font-size: 20px;
       padding: 2.5px 10px;
+      color: $color-font;
     }
   }
 
@@ -339,7 +341,7 @@ export default class Charts extends Vue{
       .interval-tab-bar-item {
         font-size: 14px;
         width: 33%;
-        border: 1px solid black;
+        border: 1px solid $color-font;
         &:first-child {
           border-radius: 4px 0 0 4px;
         }
@@ -347,9 +349,10 @@ export default class Charts extends Vue{
           border-radius: 0 4px 4px 0;
         }
         &.selected {
-          background:black;
+          background:#24c789;
           color: white;
-        }
+          }
+
       }
     }
   }
